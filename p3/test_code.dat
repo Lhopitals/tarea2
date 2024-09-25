@@ -1,0 +1,101 @@
+
+    // // Crear las configuraciones para el código de Gray
+    // std::vector<int> previousGray(N * N, 1);  // Inicializa todos los spins en +1
+    // std::vector<int> currentGray(N * N, 1);   // Configuración inicial (todos en +1)
+
+    // // Realizar varios flips usando el código de Gray
+    // std::cout << "Probando Gray Flip:" << std::endl;
+    // for (int i = 1; i <= 8; ++i) {  // Hacer algunos flips
+    //     // Calcular la nueva configuración de spins en formato de Gray
+    //     for (int j = 0; j < N * N; ++j) {
+    //         currentGray[j] = (i >> j) & 1 ? 1 : -1;  // Cambiar el spin basado en el código de Gray
+    //     }
+
+    //     // Aplicar el Gray Flip (solo cambia un spin)
+    //     ising.gray_flip(previousGray, currentGray);
+
+    //     // Mostrar la nueva configuración después del flip
+    //     std::cout << "Configuración " << i << " de spins:" << std::endl;
+    //     ising.printSpins();
+
+    //     // Actualizar el código de Gray anterior
+    //     previousGray = currentGray;
+    // }
+
+
+
+
+
+    // // Calcular y mostrar la energía con condiciones no periódicas
+    // int energy_non_periodic = ising.energyIsingNonPeriodic( N, J, ising.getSpins());
+    // std::cout << "Energía con condiciones no periódicas: " << energy_non_periodic << std::endl;
+    // double T = 2.0;
+    // // Voltear un spin y mostrar la nueva configuración
+    // ising.metropolis(N, J, T, energy_periodic );
+    // std::cout << "Configuración de spins después de un paso de Metropolis:" << std::endl;
+    
+
+    // ising.printSpins();
+
+    // // Calcula la energía y el calor especifico después de aplicado el metropolis
+    // int energy_periodic_after = ising.energyIsingPeriodic(N, J, ising.getSpins());
+    // std::cout << "Energía con condiciones periódicas después de un paso de Metropolis: " << energy_periodic_after << std::endl;
+
+
+
+
+    #include "IsingModel.h"
+#include <iostream>
+#include <vector>
+#include <map>
+
+int main() {
+    int N = 6;  // Tamaño de la red
+    int J = 1;  // Constante de interacción
+
+    // Crear un objeto de la clase IsingModel
+    IsingModel ising(N);
+
+    // // Enumerar todas las configuraciones posibles de spins
+    // std::vector<std::vector<std::vector<int>>> configs = ising.EnumerateIsing(N);
+
+    // int zeroEnergyCount = 0;
+    // int positiveEnergyCount = 0;
+    // std::map<int, int> energyCounts;  // Mapa para contar configuraciones con energías específicas
+
+    // for (int i = 0; i < configs.size(); ++i) {
+    //     // Calcular la energía de la configuración
+    //     int energy = ising.energyIsingPeriodic(N, J, configs[i]);
+
+    //     // Contar configuraciones con energía 0 y positivas
+    //     if (energy == 0) {
+    //         zeroEnergyCount++;
+    //     } else if (energy > 0) {
+    //         positiveEnergyCount++;
+    //     }
+
+    //     // Contar configuraciones con energías 0, 4, 8, etc.
+    //     if (energy >=0) {
+    //         energyCounts[energy]++;
+    //     }
+    // }
+
+    double T = 2.0;
+    int energy_periodic = ising.energyIsingPeriodic(N, J, ising.getSpins());
+    ising.metropolis(N, J, T, energy_periodic);
+    double energy = ising.averageEnergy(J, T);
+    std::cout << "Energía promedio: " << energy << std::endl;
+
+    // // Mostrar la cantidad de configuraciones con energía 0 y positivas
+    // std::cout << "Cantidad de configuraciones con energía 0: " << zeroEnergyCount << std::endl;
+    // // std::cout << "Cantidad de configuraciones con energía positiva: " << positiveEnergyCount << std::endl;
+
+    // Mostrar la cantidad de configuraciones con energías 0, 4, 8, etc.
+    // for (const auto& pair : energyCounts) {
+    //     std::cout << "Cantidad de configuraciones con energía " << pair.first << ": " << pair.second << std::endl;
+    // }
+
+
+
+    return 0;
+}

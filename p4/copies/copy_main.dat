@@ -1,0 +1,67 @@
+
+
+
+
+#include "IsingModel.h"
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <cmath>
+#include <map>
+
+int main() {
+    int N = 64;  // Tamaño de la red
+    int J = 1;   // Constante de interacción
+    double T_min = 0.5;  // Temperatura mínima
+    double T_max = 5.0;  // Temperatura máxima
+    int num_T = 100;     // Número de puntos de temperatura
+    int equilibrationSteps = 2e5;  // Pasos de equilibración
+    int samplingSteps = 5e6;  // Pasos de muestreo
+    double dT = 0.1;  // Incremento de temperatura
+
+    // Crear un objeto de la clase IsingModel para red N=32
+    IsingModel ising(N);
+    std::cout << "Red de tamaño N = " << N << " creada\n";
+
+    // Archivos de salida
+    std::ofstream binderFile("N64_binder_vs_temperature.dat");
+    std::ofstream magnetizationFile("N64_magnetization_vs_temperature.dat");
+
+    // Segunda Parte: Cálculo de Magnetización y Binder Cumulant sobre un rango de temperaturas
+    for (double T = T_min; T <= T_max; T += dT) {
+        std::cout << "Calculando para T = " << T << "...\n";
+
+        // Inicializar energía para cada temperatura
+        int energy = ising.energyPeriodic(J);
+
+        // Fase de equilibración usando Wolff
+        for (int step = 0; step < equilibrationSteps; ++step) {
+            ising.wolffCluster(J, T, energy);
+        }
+
+        // Medición de la magnetización promedio
+        double magnetization_sum = 0.0;
+        for (int step = 0; step < samplingSteps; ++step) {
+            ising.wolffCluster(J, T, energy);
+            magnetization_sum += ising.magnetization();
+        }
+        double magnetization_mean = magnetization_sum / samplingSteps;
+
+        // Guardar y mostrar la magnetización promedio
+        magnetizationFile << T << " " << magnetization_mean << std::endl;
+        std::cout << "T: " << T << " Magnetización promedio: " << magnetization_mean << std::endl;
+
+        // Calcular el Binder cumulant para cada temperatura
+        double binderCumulant = ising.binderCumulantWolff(T, J, samplingSteps);
+        binderFile << T << "\t" << binderCumulant << "\n";
+        std::cout << "T = " << T << ", Binder Cumulant = " << binderCumulant << std::endl;
+    }
+
+    // Cerrar archivos
+    magnetizationFile.close();
+    binderFile.close();
+
+    std::cout << "Cálculos completados. Datos guardados en archivos correspondientes.\n";
+    return 0;
+}
+

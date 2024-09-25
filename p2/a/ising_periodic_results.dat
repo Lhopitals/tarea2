@@ -1,0 +1,17 @@
+Condiciones de borde: Periódicas.
+Tamaño de la red: 4x4
+Cantidad de configuraciones con energía -32: 2
+Cantidad de configuraciones con energía -24: 32
+Cantidad de configuraciones con energía -20: 64
+Cantidad de configuraciones con energía -16: 424
+Cantidad de configuraciones con energía -12: 1728
+Cantidad de configuraciones con energía -8: 6688
+Cantidad de configuraciones con energía -4: 13568
+Cantidad de configuraciones con energía 0: 20524
+Cantidad de configuraciones con energía 4: 13568
+Cantidad de configuraciones con energía 8: 6688
+Cantidad de configuraciones con energía 12: 1728
+Cantidad de configuraciones con energía 16: 424
+Cantidad de configuraciones con energía 20: 64
+Cantidad de configuraciones con energía 24: 32
+Cantidad de configuraciones con energía 32: 2

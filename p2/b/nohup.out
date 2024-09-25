@@ -1,0 +1,15 @@
+Histograma N(E, M) escrito usando Gray Flip
+Histograma N(E) escrito usando Gray Flip
+Histograma N(M) escrito usando Gray Flip
+Distribución de magnetización por sitio π(m) escrita
+T = 0, Binder Cumulant = nan
+T = 0.1, Binder Cumulant = nan
+T = 0.2, Binder Cumulant = 1
+T = 0.3, Binder Cumulant = 1
+T = 0.4, Binder Cumulant = 1
+T = 0.5, Binder Cumulant = 1
+T = 0.6, Binder Cumulant = 1
+T = 0.7, Binder Cumulant = 0.999998
+T = 0.8, Binder Cumulant = 0.99999
+T = 0.9, Binder Cumulant = 0.999968
+make: *** [run] Interrupt: 2
